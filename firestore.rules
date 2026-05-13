@@ -1,0 +1,142 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isBandMember(bandId) {
+      return isSignedIn() && request.auth.uid in get(/databases/$(database)/documents/bands/$(bandId)).data.members;
+    }
+
+    // --- Entity Validations ---
+
+    function isBandOwner(bandId) {
+      return isSignedIn() && request.auth.uid == get(/databases/$(database)/documents/bands/$(bandId)).data.ownerId;
+    }
+
+    function isAuthor(data) {
+      return isSignedIn() && data.authorId == request.auth.uid;
+    }
+
+    // --- Entity Validations ---
+
+    function isValidProfile(data) {
+      return data.displayName is string && data.displayName.size() <= 60;
+    }
+
+    function isValidBand(data) {
+      return data.name is string && data.name.size() <= 100 &&
+             data.members is list && data.members.size() >= 1;
+    }
+
+    function isValidSong(data) {
+      return data.title is string && data.title.size() <= 200 &&
+             data.bandId is string &&
+             data.authorId is string;
+    }
+
+    function isValidSession(data) {
+      return (data.bandId is string || data.gigId is string);
+    }
+
+    function isValidGig(data) {
+      return data.name is string && data.name.size() <= 100 &&
+             data.creatorId is string;
+    }
+
+    // --- Collection Routes ---
+
+    match /users/{uid} {
+      allow get: if isSignedIn();
+      allow create: if isOwner(uid) && isValidProfile(incoming()) && incoming().updatedAt == request.time;
+      allow update: if isOwner(uid) && isValidProfile(incoming()) && incoming().updatedAt == request.time;
+    }
+
+    match /bands/{bandId} {
+      allow get: if isSignedIn(); // Allow reading by ID to join
+      allow list: if isSignedIn() && request.auth.uid in resource.data.members;
+      allow create: if isSignedIn() && isValidBand(incoming()) && 
+                    incoming().ownerId == request.auth.uid &&
+                    incoming().createdAt == request.time;
+      allow update: if isSignedIn() && (
+        // Action: Admin Edit
+        (isBandOwner(bandId) && incoming().createdAt == existing().createdAt) ||
+        // Action: Join
+        (incoming().diff(existing()).affectedKeys().hasOnly(['members']) && 
+         request.auth.uid in incoming().members &&
+         incoming().members.size() == existing().members.size() + 1) ||
+        // Demo Bypass
+        bandId == 'demo-link-band-01'
+      );
+      allow delete: if isSignedIn() && isBandOwner(bandId);
+
+      match /saved_setlists/{setlistId} {
+        allow list, get: if isBandMember(bandId) || (isSignedIn() && bandId == 'demo-link-band-01');
+        allow create, update, delete: if isBandMember(bandId) || bandId == 'demo-link-band-01';
+      }
+
+      match /songs/{songId} {
+        allow list, get: if isBandMember(bandId) || (isSignedIn() && bandId == 'demo-link-band-01');
+        allow create: if (isBandMember(bandId) || bandId == 'demo-link-band-01') && 
+                      isValidSong(incoming()) && 
+                      incoming().bandId == bandId &&
+                      incoming().createdAt == request.time;
+        allow update: if (isBandMember(bandId) || bandId == 'demo-link-band-01') && 
+                      (isAuthor(existing()) || isBandOwner(bandId) || bandId == 'demo-link-band-01') &&
+                      isValidSong(incoming()) && 
+                      incoming().createdAt == existing().createdAt && 
+                      incoming().bandId == existing().bandId;
+        allow delete: if isBandMember(bandId) || bandId == 'demo-link-band-01';
+      }
+
+      match /sessions/{sessionId} {
+        allow list, get: if isBandMember(bandId) || (isSignedIn() && bandId == 'demo-link-band-01');
+        allow create: if (isBandMember(bandId) || bandId == 'demo-link-band-01') && 
+                      isValidSession(incoming()) &&
+                      incoming().updatedAt == request.time;
+        allow update: if (isBandMember(bandId) || bandId == 'demo-link-band-01') && 
+                      (isValidSession(incoming()) && incoming().updatedAt == request.time || bandId == 'demo-link-band-01');
+        allow delete: if isBandMember(bandId) || bandId == 'demo-link-band-01';
+      }
+    }
+
+    match /gigs/{gigId} {
+      allow get: if isSignedIn();
+      allow create: if isSignedIn() && isValidGig(incoming()) && incoming().createdAt == request.time;
+      allow update: if isSignedIn() && (existing().creatorId == request.auth.uid) && incoming().createdAt == existing().createdAt;
+      allow delete: if isSignedIn() && (existing().creatorId == request.auth.uid);
+
+      match /sessions/{sessionId} {
+        allow list, get: if isSignedIn();
+        allow create: if isSignedIn() && isValidSession(incoming()) && incoming().updatedAt == request.time;
+        allow update: if isSignedIn() && isValidSession(incoming()) && incoming().updatedAt == request.time;
+        allow delete: if isSignedIn();
+      }
+    }
+  }
+}

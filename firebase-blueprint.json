@@ -1,0 +1,112 @@
+{
+  "entities": {
+    "Band": {
+      "title": "Band",
+      "description": "A group of musicians who share setlists and songs.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "members": { "type": "array", "description": "Array of user IDs who are members of the band." },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "ownerId", "members", "createdAt"]
+    },
+    "Song": {
+      "title": "Song",
+      "description": "A musical piece with lyrics, chords, and metadata.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "artist": { "type": "string" },
+        "lyrics": { "type": "string" },
+        "chords": { "type": "string" },
+        "key": { "type": "string" },
+        "tempo": { "type": "number" },
+        "notes": { "type": "string" },
+        "streamingLink": { "type": "string" },
+        "authorId": { "type": "string" },
+        "bandId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "authorId", "bandId", "createdAt"]
+    },
+    "Setlist": {
+      "title": "Setlist",
+      "description": "An ordered collection of songs for a performance.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "bandId": { "type": "string" },
+        "songIds": { "type": "array", "description": "Ordered list of song IDs." },
+        "status": { "enum": ["draft", "active", "archived"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "bandId", "songIds", "createdAt"]
+    },
+    "LiveSession": {
+      "title": "Live Session",
+      "description": "Real-time state for a live performance.",
+      "type": "object",
+      "properties": {
+        "bandId": { "type": "string" },
+        "gigId": { "type": "string" },
+        "activeSongId": { "type": "string" },
+        "activeSectionIndex": { "type": "number" },
+        "setlist": { "type": "array" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Gig": {
+      "title": "Gig",
+      "description": "A single performance event session.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "creatorId": { "type": "string" },
+        "bandId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "creatorId", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Public user profile data.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "bio": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["displayName", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "UserProfile",
+      "description": "Public user profile information."
+    },
+    "/bands/{bandId}": {
+      "schema": "Band",
+      "description": "Top-level band documents."
+    },
+    "/bands/{bandId}/songs/{songId}": {
+      "schema": "Song",
+      "description": "Songs belonging to a specific band."
+    },
+    "/bands/{bandId}/sessions/{sessionId}": {
+      "schema": "LiveSession",
+      "description": "Active performance state for real-time syncing."
+    },
+    "/gigs/{gigId}": {
+      "schema": "Gig",
+      "description": "Single performance sessions."
+    },
+    "/gigs/{gigId}/sessions/{sessionId}": {
+      "schema": "LiveSession",
+      "description": "Active performance state for a specific gig."
+    }
+  }
+}
