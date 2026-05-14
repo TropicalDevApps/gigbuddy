@@ -2,6 +2,14 @@
 
 The ultimate real-time live music dashboard. Sync setlists, lyrics, and chords, and control Spotify/YouTube Music playback directly from the stage with your band.
 
+## 📱 Progressive Web App (PWA)
+**gigBuddy** is designed to work everywhere. It runs as a **Progressive Web App**, meaning you can install it directly on your devices for a native app experience:
+
+-   **💻 Desktop/PC**: Install via Chrome/Edge (click the install icon in the address bar).
+-   **📱 Mobile (iOS/Android)**: "Add to Home Screen" from your mobile browser.
+-   **📟 Tablets**: Perfect for stage-view use, fully responsive and touch-optimized.
+-   **📶 Offline Support**: Access your cached setlists even when the venue's Wi-Fi fails.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
