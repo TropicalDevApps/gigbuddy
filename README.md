@@ -1,5 +1,7 @@
 # 🎸 gigBuddy
 
+![gigBuddy Dashboard](./shot.png)
+
 The ultimate real-time live music dashboard. Sync setlists, lyrics, and chords, and control Spotify/YouTube Music playback directly from the stage with your band.
 
 ## 📱 Progressive Web App (PWA)
