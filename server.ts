@@ -149,7 +149,7 @@ async function startServer() {
     });
     app.use(vite.middlewares);
 
-    app.use("(.*)", async (req, res, next) => {
+    app.use("/:path*", async (req, res, next) => {
       const url = req.originalUrl;
       try {
         let template = fs.readFileSync(
@@ -167,7 +167,7 @@ async function startServer() {
     const distPath = path.join(process.cwd(), "dist");
     if (fs.existsSync(distPath)) {
       app.use(express.static(distPath));
-      app.get("(.*)", (req, res) => {
+      app.get("/:path*", (req, res) => {
         res.sendFile(path.join(distPath, "index.html"));
       });
     } else {
