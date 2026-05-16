@@ -235,7 +235,11 @@ export const bandService = {
     const user = auth.currentUser;
     if (!user) throw new Error("Auth required");
 
-    const gigId = `gig-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+    const idChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const gigBytes = new Uint8Array(6);
+    crypto.getRandomValues(gigBytes);
+    const gigSuffix = Array.from(gigBytes, (b) => idChars[b % idChars.length]).join("");
+    const gigId = `gig-${gigSuffix}`;
     const gigRef = doc(db, "gigs", gigId);
 
     await setDoc(gigRef, {
@@ -295,7 +299,11 @@ export const bandService = {
     const user = auth.currentUser;
     if (!user) throw new Error("Auth required");
 
-    const bandId = `band-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+    const idChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const bandBytes = new Uint8Array(6);
+    crypto.getRandomValues(bandBytes);
+    const bandSuffix = Array.from(bandBytes, (b) => idChars[b % idChars.length]).join("");
+    const bandId = `band-${bandSuffix}`;
     const bandRef = doc(db, "bands", bandId);
 
     await setDoc(bandRef, {
