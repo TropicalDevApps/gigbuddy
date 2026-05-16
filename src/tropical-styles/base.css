@@ -1,0 +1,21 @@
+﻿@layer base {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  
+  body {
+    font-family: var(--ui-font-sans);
+    background: var(--ui-surface-0);
+    color: var(--ui-text-primary);
+    min-height: 100vh;
+    line-height: var(--ui-leading-base);
+    transition: background var(--ui-dur-slow) var(--ui-ease-default),
+                color var(--ui-dur-slow) var(--ui-ease-default);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--ui-border-default); border-radius: 3px; }
+}

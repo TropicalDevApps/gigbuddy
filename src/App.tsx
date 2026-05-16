@@ -173,10 +173,14 @@ export default function App() {
     "main" | "userConfig" | "bandConfig" | "globalSettings"
   >("main");
   const [globalTheme, setGlobalTheme] = useState<
-    "minimal" | "glass" | "industrial"
+    | "brand-tropic-vibes"
+    | "brand-mango"
+    | "brand-balandra"
+    | "brand-playa"
+    | "brand-pitahaya"
   >(() => {
     const cached = localStorage.getItem("gigbuddy_global_theme");
-    return (cached as any) || "glass";
+    return (cached as any) || "brand-tropic-vibes";
   });
 
   const [globalMode, setGlobalMode] = useState<"dark" | "light">(() => {
@@ -218,7 +222,14 @@ export default function App() {
 
   // Apply theme to html element
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", globalTheme);
+    document.documentElement.classList.remove(
+      "brand-tropic-vibes",
+      "brand-mango",
+      "brand-balandra",
+      "brand-playa",
+      "brand-pitahaya",
+    );
+    document.documentElement.classList.add(globalTheme);
     localStorage.setItem("gigbuddy_global_theme", globalTheme);
   }, [globalTheme]);
 
@@ -618,7 +629,7 @@ export default function App() {
   } | null>(null);
   const [viewingSongId, setViewingSongId] = useState<string | null>(null);
   const [mobileView, setMobileView] = useState<"setlist" | "stage" | "notes">(
-    "stage",
+    "setlist",
   );
   const [sessionToolsTab, setSessionToolsTab] = useState<
     "sync" | "notes" | "tools" | "youtube"
@@ -1255,7 +1266,7 @@ export default function App() {
           </p>
         </div>
 
-        <Card className="w-full max-w-xs p-6 lg:p-6 space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300 relative z-10">
+        <Card className="w-full max-w-xs p-fluid-md lg:p-fluid-lg space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300 relative z-10">
           <Button
             onClick={signIn}
             size="full"
@@ -1333,7 +1344,7 @@ export default function App() {
           <div className="grid lg:grid-cols-2 gap-6 w-full max-w-4xl mx-auto">
             {/* Saved Bands */}
             {userBands.length > 0 && (
-              <div className="lg:col-span-2 bg-text-bright/5 border border-border-main p-5 sm:p-6 lg:p-8 rounded-3xl space-y-6 flex flex-col hover:border-brand/40 transition-all group">
+              <div className="lg:col-span-2 bg-text-bright/5 border border-border-main p-fluid-md lg:p-fluid-lg rounded-3xl space-y-6 flex flex-col hover:border-brand/40 transition-all group">
                 <div>
                   <h3 className="text-xl font-bold group-hover:text-brand transition-colors">
                     Your Squads
@@ -1349,7 +1360,7 @@ export default function App() {
                       <div key={b.id} className="relative group/band">
                         <button
                           onClick={() => handleJoinSession(b.id)}
-                          className="w-full px-4 py-3 bg-black/40 border border-text-bright/10 rounded-xl hover:border-brand/50 hover:bg-brand/10 transition-all text-left flex items-center gap-3 active:scale-[0.98]"
+                          className="w-full px-4 py-3 bg-bg-deep/40 border border-text-bright/10 rounded-xl hover:border-brand/50 hover:bg-brand/10 transition-all text-left flex items-center gap-3 active:scale-[0.98]"
                         >
                           <div className="w-8 h-8 rounded-full bg-brand/20 flex shrink-0 items-center justify-center text-brand font-bold text-sm">
                             {b.name.charAt(0).toUpperCase()}
@@ -1394,7 +1405,7 @@ export default function App() {
               <input
                 type="text"
                 placeholder="Ex: group-K9XJ3P"
-                className="w-full bg-black/40 border border-text-bright/10 rounded-xl px-4 py-3 text-brand font-mono uppercase tracking-widest focus:border-brand/50 focus:outline-none placeholder:text-text-bright/10 transition-all"
+                className="w-full bg-bg-deep/40 border border-text-bright/10 rounded-xl px-4 py-3 text-brand font-mono uppercase tracking-widest focus:border-brand/50 focus:outline-none placeholder:text-text-bright/10 transition-all"
                 id="session-code-input"
               />
               <Button
@@ -1622,7 +1633,7 @@ export default function App() {
   const TransportSourceSelector = () => {
     if (!activeSong?.youtubeId && mediaSource.type !== "youtube") return null;
     return (
-      <div className="flex bg-black p-1 rounded-xl border border-text-bright/10 mx-auto max-w-fit mb-3 pointer-events-auto shadow-xl">
+      <div className="flex bg-bg-deep p-1 rounded-xl border border-text-bright/10 mx-auto max-w-fit mb-3 pointer-events-auto shadow-xl">
         <button
           onClick={() => setMediaSource({ type: "none", isActive: true })}
           className={cn(
@@ -1653,7 +1664,7 @@ export default function App() {
     return (
       <div className="h-dvh w-full bg-bg-deep text-text-bright flex flex-col overflow-hidden animate-in fade-in duration-500 relative">
         {/* Persistent Tactical Header - Optimized for Mobile */}
-        <header className="h-16 lg:h-24 bg-black/90 backdrop-blur-xl border-b border-border-main flex items-center justify-between px-4 md:px-8 lg:px-12 z-50 sticky top-0 shrink-0">
+        <header className="h-16 lg:h-24 bg-bg-deep/90 backdrop-blur-xl border-b border-border-main flex items-center justify-between px-4 md:px-8 lg:px-12 z-50 sticky top-0 shrink-0">
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <span className="text-[8px] lg:text-xs font-mono text-brand uppercase tracking-[0.3em] lg:tracking-[0.5em]">
@@ -1888,7 +1899,7 @@ export default function App() {
           <TransportSourceSelector />
         </div>
         {isTransportFloating ? (
-          <div className="fixed bottom-[calc(88px+env(safe-area-inset-bottom))] lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-black/80 backdrop-blur-md border border-border-main p-1 rounded-full z-50 shadow-2xl overflow-hidden">
+          <div className="fixed bottom-[calc(88px+env(safe-area-inset-bottom))] lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-bg-deep/80 backdrop-blur-md border border-border-main p-1 rounded-full z-50 shadow-2xl overflow-hidden">
             <div className="absolute bottom-0 left-0 right-0 h-px bg-text-bright/5"></div>
             {/* Progress bar line for visual feedback */}
             <div
@@ -2015,7 +2026,7 @@ export default function App() {
       {confirmDialog && (
         <div className="fixed inset-0 z-100 flex items-center justify-center animate-in fade-in">
           <div
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-bg-deep/80 backdrop-blur-sm"
             onClick={() => setConfirmDialog(null)}
           ></div>
           <div className="relative bg-bg-card p-5 sm:p-6 border border-border-main rounded-xl max-w-sm w-full mx-4 shadow-2xl z-10 animate-in zoom-in-95">
@@ -2148,7 +2159,7 @@ export default function App() {
         {isMenuOpen && (
           <div className="lg:hidden fixed inset-0 z-60 flex">
             <div
-              className="absolute inset-0 bg-black/90 md:bg-black/50 md:backdrop-blur-sm animate-in fade-in duration-200"
+              className="absolute inset-0 bg-bg-deep/90 md:bg-bg-deep/50 md:backdrop-blur-sm animate-in fade-in duration-200"
               onClick={() => setIsMenuOpen(false)}
             />
             <div className="relative w-full md:w-[320px] h-full bg-bg-deep/95 md:bg-bg-deep/80 md:backdrop-blur-xl border-r border-border-main shadow-2xl animate-in slide-in-from-left duration-200 flex flex-col pt-[env(safe-area-inset-top)]">
@@ -2167,13 +2178,48 @@ export default function App() {
                 <nav className="flex flex-col gap-6">
                   <button
                     onClick={() => {
+                      setMobileView("stage");
                       setIsLiveViewActive(true);
                       setIsMenuOpen(false);
                     }}
-                    className="text-2xl font-bold uppercase tracking-tighter text-left flex items-center gap-4 text-text-bright hover:text-brand transition-colors"
+                    className={cn(
+                      "text-2xl font-bold uppercase tracking-tighter text-left flex items-center gap-4 transition-colors",
+                      mobileView === "stage" && isLiveViewActive
+                        ? "text-brand"
+                        : "text-text-bright hover:text-brand",
+                    )}
                   >
                     <ExternalLink size={24} /> Stage Mode
                   </button>
+                  <button
+                    onClick={() => {
+                      setMobileView("setlist");
+                      setIsMenuOpen(false);
+                    }}
+                    className={cn(
+                      "text-2xl font-bold uppercase tracking-tighter text-left flex items-center gap-4 transition-colors",
+                      mobileView === "setlist"
+                        ? "text-brand"
+                        : "text-text-bright hover:text-brand",
+                    )}
+                  >
+                    <Music size={24} /> Setlist
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMobileView("notes");
+                      setIsMenuOpen(false);
+                    }}
+                    className={cn(
+                      "text-2xl font-bold uppercase tracking-tighter text-left flex items-center gap-4 transition-colors",
+                      mobileView === "notes"
+                        ? "text-brand"
+                        : "text-text-bright hover:text-brand",
+                    )}
+                  >
+                    <Layers size={24} /> Session Tools
+                  </button>
+                  <div className="h-px bg-text-bright/5 my-2" />
                   {bandId && bandId !== "local-solo" && (
                     <button
                       onClick={() => {
@@ -2216,18 +2262,16 @@ export default function App() {
           {/* Setlist Sidebar - Hidden on mobile/tablet unless active */}
           <aside
             className={cn(
-              "w-full lg:w-75 xl:w-[320px] 2xl:w-95 shrink-0 bg-bg-side border-r border-border-main flex-col absolute lg:relative top-0 right-0 left-0 bottom-[calc(64px+env(safe-area-inset-bottom))] lg:bottom-0 z-20 overflow-hidden",
+              "dock-panel w-full lg:w-75 xl:w-[320px] 2xl:w-95 shrink-0 absolute lg:relative top-0 right-0 left-0 bottom-[env(safe-area-inset-bottom)] lg:bottom-0 z-20",
               mobileView === "setlist" ? "flex" : "hidden lg:flex",
             )}
           >
-            <div className="p-3 lg:p-4 border-b border-border-main flex flex-col gap-3 bg-bg-side/50">
-              <div className="flex justify-between items-center">
+            <div className="dock-panel-header flex-col items-stretch gap-3">
+              <div className="flex justify-between items-center w-full">
                 <div className="flex items-center gap-2">
-                  <h2 className="text-[10px] lg:text-xs font-bold uppercase tracking-[0.2em] text-text-dim">
-                    Setlist
-                  </h2>
+                  <h2 className="dock-panel-title">Setlist</h2>
                   {setlistView === "current" && (
-                    <div className="bg-brand/10 text-brand text-[8px] lg:text-[10px] px-1.5 py-0.5 rounded font-mono font-bold">
+                    <div className="tag primary">
                       {Math.floor(
                         songs.reduce((acc, s) => acc + (s.duration || 0), 0) /
                           60,
@@ -2288,17 +2332,15 @@ export default function App() {
               </div>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                <div className="flex bg-black p-0.5 rounded-lg flex-1">
+                <div className="flex gap-2 p-0.5 rounded-lg flex-1">
                   <button
                     onClick={() => {
                       setAppMode("live");
                       setIsEditing(false);
                     }}
                     className={cn(
-                      "flex-1 py-1.5 text-[9px] font-bold uppercase rounded-md transition-all",
-                      appMode === "live"
-                        ? "bg-brand text-brand-contrast shadow-sm"
-                        : "text-text-dim hover:text-text-bright",
+                      "ui-tab-btn flex-1 justify-center",
+                      appMode === "live" && "active",
                     )}
                   >
                     Live
@@ -2336,10 +2378,8 @@ export default function App() {
                       }
                     }}
                     className={cn(
-                      "flex-1 py-1.5 text-[9px] font-bold uppercase rounded-md transition-all",
-                      appMode === "edit"
-                        ? "bg-text-bright text-bg-deep shadow-sm"
-                        : "text-text-dim hover:text-text-bright",
+                      "ui-tab-btn flex-1 justify-center",
+                      appMode === "edit" && "active",
                     )}
                   >
                     Edit
@@ -2347,14 +2387,12 @@ export default function App() {
                 </div>
 
                 {appMode === "edit" && (
-                  <div className="flex bg-black p-0.5 rounded-lg">
+                  <div className="flex gap-2 p-0.5 rounded-lg">
                     <button
                       onClick={() => setSetlistView("current")}
                       className={cn(
-                        "px-2 py-1.5 text-[9px] font-bold uppercase rounded-md transition-all tracking-widest",
-                        setlistView === "current"
-                          ? "bg-text-bright/20 text-text-bright"
-                          : "text-text-dim",
+                        "ui-tab-btn justify-center",
+                        setlistView === "current" && "active",
                       )}
                     >
                       Setlist
@@ -2362,10 +2400,8 @@ export default function App() {
                     <button
                       onClick={() => setSetlistView("library")}
                       className={cn(
-                        "px-2 py-1.5 text-[9px] font-bold uppercase rounded-md transition-all tracking-widest",
-                        setlistView === "library"
-                          ? "bg-text-bright/20 text-text-bright"
-                          : "text-text-dim",
+                        "ui-tab-btn justify-center",
+                        setlistView === "library" && "active",
                       )}
                     >
                       Lib
@@ -2384,21 +2420,21 @@ export default function App() {
                   placeholder="Search by title or artist..."
                   value={songSearchQuery}
                   onChange={(e) => setSongSearchQuery(e.target.value)}
-                  className="w-full bg-black/40 border border-border-main rounded-md pl-8 pr-3 py-1.5 text-[10px] text-text-bright placeholder:text-text-bright/30 focus:outline-none focus:border-brand/50 transition-colors"
+                  className="w-full bg-bg-deep/40 border border-border-main rounded-md pl-8 pr-3 py-1.5 text-[10px] text-text-bright placeholder:text-text-bright/30 focus:outline-none focus:border-brand/50 transition-colors"
                 />
               </div>
             </div>
 
             {setlistView === "current" ? (
               <>
-                <div className="flex flex-col flex-1 min-h-0 relative">
+                <div className="dock-panel-content flex flex-col flex-1 min-h-0 relative">
                   {songSearchQuery.trim() === "" ? (
                     appMode === "edit" ? (
                       <Reorder.Group
                         axis="y"
                         values={songs}
                         onReorder={handleReorderSongs}
-                        className="grow overflow-y-auto custom-scrollbar flex flex-col bg-black/20"
+                        className="grow overflow-y-auto custom-scrollbar flex flex-col bg-bg-deep/20"
                       >
                         {songs.map((song, i) => (
                           <SetlistReorderItem
@@ -2420,7 +2456,7 @@ export default function App() {
                         )}
                       </Reorder.Group>
                     ) : (
-                      <div className="grow overflow-y-auto custom-scrollbar flex flex-col bg-black/20 pb-20">
+                      <div className="grow overflow-y-auto custom-scrollbar flex flex-col bg-bg-deep/20 pb-20">
                         {songs.map((song, i) => (
                           <div
                             key={song.id}
@@ -2514,7 +2550,7 @@ export default function App() {
                       </div>
                     )
                   ) : (
-                    <div className="grow overflow-y-auto custom-scrollbar flex flex-col bg-black/20">
+                    <div className="grow overflow-y-auto custom-scrollbar flex flex-col bg-bg-deep/20">
                       {filteredSongs.length === 0 ? (
                         <div className="p-8 text-center text-text-dim">
                           <p className="text-sm">No songs match your search.</p>
@@ -2812,7 +2848,7 @@ export default function App() {
               }
             }}
             className={cn(
-              "flex-1 min-w-0 flex flex-col bg-bg-deep p-fluid-md pb-[calc(64px+1rem+env(safe-area-inset-bottom))] lg:p-fluid-lg lg:pb-fluid-lg overflow-y-auto custom-scrollbar relative z-10",
+              "flex-1 min-w-0 flex flex-col bg-bg-deep p-fluid-md pb-[calc(1rem+env(safe-area-inset-bottom))] lg:p-fluid-lg lg:pb-fluid-lg overflow-y-auto custom-scrollbar relative z-10",
               mobileView === "stage" ? "flex" : "hidden lg:flex",
             )}
           >
@@ -2975,7 +3011,7 @@ export default function App() {
                   isYouTubeDocked &&
                   !isEditing && (
                     <div
-                      className="mb-10 w-full bg-black border border-[#FF0000]/20 rounded-xl overflow-hidden shadow-2xl relative z-20 group animate-in slide-in-from-top-4 fade-in duration-300"
+                      className="mb-10 w-full bg-bg-deep border border-[#FF0000]/20 rounded-xl overflow-hidden shadow-2xl relative z-20 group animate-in slide-in-from-top-4 fade-in duration-300"
                       style={{ order: stageLayout.indexOf("header") }}
                     >
                       <div className="bg-[#111]/80 backdrop-blur-sm px-4 py-2 border-b border-[#FF0000]/20 flex justify-between items-center z-10 relative group-hover:opacity-100 lg:opacity-0 transition-opacity">
@@ -3005,7 +3041,7 @@ export default function App() {
                           </button>
                         </div>
                       </div>
-                      <div className="w-full max-w-4xl mx-auto p-2 lg:p-4 bg-black">
+                      <div className="w-full max-w-4xl mx-auto p-2 lg:p-4 bg-bg-deep">
                         <YouTubePlayer
                           ref={youtubePlayerRef}
                           videoId={activeSong?.youtubeId || null}
@@ -3490,15 +3526,15 @@ export default function App() {
               className={cn(
                 "fixed left-1/2 lg:left-[calc(50%+160px)] 2xl:left-[calc(50%+190px)] -translate-x-1/2 z-50 transition-all",
                 isTransportFloating
-                  ? "bottom-[calc(88px+env(safe-area-inset-bottom)+70px)] lg:bottom-25"
-                  : "bottom-[calc(64px+env(safe-area-inset-bottom)+80px)] lg:bottom-25",
+                  ? "bottom-[calc(env(safe-area-inset-bottom)+94px)] lg:bottom-25"
+                  : "bottom-[calc(env(safe-area-inset-bottom)+80px)] lg:bottom-25",
               )}
             >
               <TransportSourceSelector />
             </div>
 
             {isTransportFloating ? (
-              <div className="fixed bottom-[calc(88px+env(safe-area-inset-bottom))] lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-black/80 backdrop-blur-md border border-border-main p-1 rounded-full z-50 shadow-2xl overflow-hidden">
+              <div className="fixed bottom-[calc(env(safe-area-inset-bottom)+24px)] lg:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-bg-deep/80 backdrop-blur-md border border-border-main p-1 rounded-full z-50 shadow-2xl overflow-hidden">
                 <div className="absolute bottom-0 left-0 right-0 h-px bg-text-bright/5"></div>
                 {/* Progress bar line for visual feedback */}
                 <div
@@ -3548,13 +3584,13 @@ export default function App() {
                 </div>
               </div>
             ) : (
-              <div className="fixed bottom-[calc(64px+env(safe-area-inset-bottom))] lg:bottom-0 left-0 right-0 xl:left-80 xl:right-80 2xl:left-95 2xl:right-95 h-20 lg:h-24 bg-bg-card/95 backdrop-blur-md border-t border-border-main z-40 shadow-2xl flex items-center transition-all">
+              <div className="fixed bottom-[env(safe-area-inset-bottom)] lg:bottom-0 left-0 right-0 xl:left-80 xl:right-80 2xl:left-95 2xl:right-95 h-20 lg:h-24 bg-bg-card/95 backdrop-blur-md border-t border-border-main z-40 shadow-2xl flex items-center transition-all">
                 <div className="w-full px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 items-center">
                   {/* Left: Track info & Progress - Hidden on small desktops to save space */}
                   <div className="hidden xl:flex items-center gap-6 overflow-hidden pr-4">
                     <div className="flex flex-col gap-2 w-full max-w-xs">
                       {currentTrack && (
-                        <div className="flex items-center gap-2 border border-text-bright/5 bg-black/20 p-1.5 px-3 rounded-full self-start max-w-full">
+                        <div className="flex items-center gap-2 border border-text-bright/5 bg-bg-deep/20 p-1.5 px-3 rounded-full self-start max-w-full">
                           <div className="w-2 h-2 rounded-full bg-brand animate-pulse shrink-0"></div>
                           <span className="text-[10px] font-bold text-text-bright truncate">
                             {currentTrack.title}
@@ -3642,15 +3678,13 @@ export default function App() {
           {/* Song Notes Sidebar - Hidden on mobile/tablet unless active */}
           <aside
             className={cn(
-              "w-full lg:w-75 xl:w-[320px] 2xl:w-95 shrink-0 bg-bg-side border-l border-border-main flex-col absolute lg:relative top-0 right-0 left-0 bottom-[calc(64px+env(safe-area-inset-bottom))] lg:bottom-0 z-20 overflow-hidden",
+              "dock-panel w-full lg:w-75 xl:w-[320px] 2xl:w-95 shrink-0 absolute lg:relative top-0 right-0 left-0 bottom-[env(safe-area-inset-bottom)] lg:bottom-0 z-20",
               mobileView === "notes" ? "flex" : "hidden lg:flex",
             )}
           >
-            <div className="p-4 lg:p-6 border-b border-border-main flex flex-col gap-4 bg-bg-side/50">
-              <div className="flex justify-between items-center">
-                <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-text-dim">
-                  Session Tools
-                </h2>
+            <div className="dock-panel-header flex-col items-stretch gap-3 border-b-0 pb-0">
+              <div className="flex justify-between items-center w-full">
+                <h2 className="dock-panel-title">Session Tools</h2>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setMobileView("stage")}
@@ -3661,14 +3695,12 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="flex bg-black p-1 rounded-xl">
+              <div className="flex gap-2 mb-2 overflow-x-auto custom-scrollbar pb-2">
                 <button
                   onClick={() => setSessionToolsTab("sync")}
                   className={cn(
-                    "grow py-2 text-[10px] font-bold uppercase rounded-lg transition-all",
-                    sessionToolsTab === "sync"
-                      ? "bg-brand text-brand-contrast shadow-lg shadow-brand/20"
-                      : "text-text-dim hover:text-text-bright",
+                    "ui-tab-btn shrink-0",
+                    sessionToolsTab === "sync" && "active",
                   )}
                 >
                   Live Sync
@@ -3676,10 +3708,8 @@ export default function App() {
                 <button
                   onClick={() => setSessionToolsTab("notes")}
                   className={cn(
-                    "grow py-2 text-[10px] font-bold uppercase rounded-lg transition-all",
-                    sessionToolsTab === "notes"
-                      ? "bg-brand text-brand-contrast shadow-lg shadow-brand/20"
-                      : "text-text-dim hover:text-text-bright",
+                    "ui-tab-btn shrink-0",
+                    sessionToolsTab === "notes" && "active",
                   )}
                 >
                   Notes
@@ -3687,10 +3717,8 @@ export default function App() {
                 <button
                   onClick={() => setSessionToolsTab("tools")}
                   className={cn(
-                    "grow py-2 text-[10px] font-bold uppercase rounded-lg transition-all",
-                    sessionToolsTab === "tools"
-                      ? "bg-brand text-brand-contrast shadow-lg shadow-brand/20"
-                      : "text-text-dim hover:text-text-bright",
+                    "ui-tab-btn shrink-0",
+                    sessionToolsTab === "tools" && "active",
                   )}
                 >
                   Tools
@@ -3698,10 +3726,8 @@ export default function App() {
                 <button
                   onClick={() => setSessionToolsTab("youtube")}
                   className={cn(
-                    "grow py-2 text-[10px] font-bold uppercase rounded-lg transition-all flex items-center justify-center gap-1",
-                    sessionToolsTab === "youtube"
-                      ? "bg-[#FF0000] text-white shadow-lg shadow-[#FF0000]/20"
-                      : "text-text-dim hover:text-text-bright",
+                    "ui-tab-btn shrink-0",
+                    sessionToolsTab === "youtube" && "active",
                   )}
                 >
                   YouTube
@@ -3709,12 +3735,12 @@ export default function App() {
               </div>
             </div>
 
-            <div className="p-4 lg:p-6 grow overflow-auto custom-scrollbar">
+            <div className="dock-panel-content p-fluid-md lg:p-fluid-lg grow custom-scrollbar">
               {sessionToolsTab === "sync" && (
-                <div className="space-y-6">
+                <div className="flex flex-col gap-fluid-gap">
                   <div
                     className={cn(
-                      "p-6 rounded-2xl border transition-all relative overflow-hidden",
+                      "p-fluid-md lg:p-fluid-lg rounded-3xl border transition-all relative overflow-hidden",
                       isLiveSyncEnabled
                         ? "bg-brand/10 border-brand/40"
                         : "bg-text-bright/5 border-text-bright/10",
@@ -3756,7 +3782,7 @@ export default function App() {
                         onClick={() => setIsLiveSyncEnabled(!isLiveSyncEnabled)}
                         className={cn(
                           "w-14 h-8 rounded-full transition-colors flex items-center px-1 shrink-0 shadow-inner",
-                          isLiveSyncEnabled ? "bg-brand" : "bg-black/50",
+                          isLiveSyncEnabled ? "bg-brand" : "bg-bg-deep/50",
                         )}
                       >
                         <div
@@ -3825,7 +3851,7 @@ export default function App() {
               )}
 
               {sessionToolsTab === "tools" && (
-                <div className="space-y-8">
+                <div className="flex flex-col gap-fluid-gap">
                   <MetronomePlugin />
 
                   <div className="pt-8 border-t border-border-main">
@@ -3835,7 +3861,7 @@ export default function App() {
               )}
 
               {sessionToolsTab === "youtube" && (
-                <div className="space-y-6">
+                <div className="flex flex-col gap-fluid-gap">
                   <div className="flex items-center justify-between">
                     <h3 className="text-[10px] font-bold uppercase tracking-widest text-[#FF0000]">
                       YouTube Search
@@ -3862,7 +3888,7 @@ export default function App() {
                     Search for reference tracks or covers to visualize on stage.
                   </p>
 
-                  <div className="border border-[#FF0000]/20 rounded-xl bg-[#FF0000]/5 p-4 shadow-inner">
+                  <div className="border border-[#FF0000]/20 rounded-2xl bg-[#FF0000]/5 p-fluid-md shadow-inner space-y-4">
                     <YoutubeSearch
                       currentVideoId={activeSong?.youtubeId}
                       onPlay={() => {
@@ -3955,7 +3981,7 @@ export default function App() {
           />
         )}
         {mediaSource.type === "youtube" && !isYouTubeDocked && (
-          <div className="fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-32px)] sm:w-[320px] lg:w-100 z-50 shadow-2xl rounded-2xl overflow-hidden border border-[#FF0000]/30 bg-black animate-in slide-in-from-bottom-10 fade-in zoom-in-95 duration-300">
+          <div className="fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-32px)] sm:w-[320px] lg:w-100 z-50 shadow-2xl rounded-2xl overflow-hidden border border-[#FF0000]/30 bg-bg-deep animate-in slide-in-from-bottom-10 fade-in zoom-in-95 duration-300">
             <div className="bg-[#111] px-4 py-3 text-[10px] font-mono flex justify-between items-center z-10 relative border-b border-border-main">
               <span className="text-[#FF0000] flex items-center gap-1.5">
                 <Play size={10} fill="currentColor" /> Youtube Reference
@@ -3992,7 +4018,7 @@ export default function App() {
         {/* Song Specifications Modal */}
         {viewingSong && (
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
+            className="fixed inset-0 bg-bg-deep/80 backdrop-blur-sm z-50 flex items-center justify-center p-6"
             onClick={() => setViewingSongId(null)}
           >
             <div
@@ -4088,7 +4114,7 @@ export default function App() {
         {/* Countdown Overlay */}
         {countdown !== null && (
           <div
-            className="fixed inset-0 z-100 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer animate-in fade-in duration-300"
+            className="fixed inset-0 z-100 bg-bg-deep/90 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer animate-in fade-in duration-300"
             onClick={cancelCountdown}
           >
             <div className="text-center space-y-8">
@@ -4132,57 +4158,6 @@ export default function App() {
             )}
           </div>
         )}
-
-        {/* Global Mobile Bottom Navigation Bar */}
-        <nav
-          className={cn(
-            "lg:hidden fixed bottom-0 left-0 right-0 h-[calc(64px+env(safe-area-inset-bottom))] bg-bg-deep border-t border-border-main flex items-center justify-around z-45 pb-[env(safe-area-inset-bottom)] select-none transition-transform duration-300",
-            isMenuOpen ? "translate-y-full md:translate-y-0" : "translate-y-0",
-          )}
-        >
-          <button
-            onClick={() => setMobileView("setlist")}
-            className={cn(
-              "flex flex-col items-center justify-center w-full h-full gap-1 transition-all",
-              mobileView === "setlist"
-                ? "text-brand bg-brand/5"
-                : "text-text-dim hover:text-text-bright",
-            )}
-          >
-            <Music size={20} />
-            <span className="text-[9px] uppercase font-bold tracking-widest">
-              Setlist
-            </span>
-          </button>
-          <button
-            onClick={() => setMobileView("stage")}
-            className={cn(
-              "flex flex-col items-center justify-center w-full h-full gap-1 transition-all border-x border-border-main",
-              mobileView === "stage"
-                ? "text-brand bg-brand/5"
-                : "text-text-dim hover:text-text-bright",
-            )}
-          >
-            <Play size={20} />
-            <span className="text-[9px] uppercase font-bold tracking-widest">
-              Stage
-            </span>
-          </button>
-          <button
-            onClick={() => setMobileView("notes")}
-            className={cn(
-              "flex flex-col items-center justify-center w-full h-full gap-1 transition-all",
-              mobileView === "notes"
-                ? "text-brand bg-brand/5"
-                : "text-text-dim hover:text-text-bright",
-            )}
-          >
-            <Layers size={20} />
-            <span className="text-[9px] uppercase font-bold tracking-widest">
-              Tools
-            </span>
-          </button>
-        </nav>
       </div>
       <PrintView printMode={printMode} songs={songs} />
     </>

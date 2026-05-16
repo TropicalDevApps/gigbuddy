@@ -1,0 +1,266 @@
+﻿@layer components {
+  /* Common component-like classes from the original HTML */
+  
+  /* SURFACE CARDS */
+  .surface-card {
+    background: var(--ui-surface-4);
+    border: 1px solid var(--ui-border-default);
+    border-radius: var(--ui-r-lg);
+    padding: 14px 16px;
+    transition: background var(--ui-dur-fast), border-color var(--ui-dur-fast);
+  }
+  .surface-card:hover {
+    background: var(--ui-surface-5);
+    border-color: var(--ui-border-hover);
+  }
+  .surface-card.elevated {
+    background: var(--ui-surface-3);
+    box-shadow: var(--ui-shadow-sm);
+    border-color: var(--ui-border-subtle);
+  }
+  [data-theme="light"] .surface-card.elevated {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  /* PILLS */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: var(--ui-r-pill);
+    font-size: var(--ui-text-xs);
+    font-family: var(--ui-font-mono);
+    border: 1px solid;
+    cursor: default;
+    user-select: none;
+    font-weight: 500;
+  }
+  .pill.primary   { background: var(--ui-accent-primary-bg);   color: var(--ui-accent-primary);  border-color: var(--ui-accent-primary-border); }
+  .pill.secondary { background: var(--ui-accent-secondary-bg); color: var(--ui-accent-secondary); border-color: var(--ui-accent-secondary-border); }
+  .pill.success   { background: var(--ui-success-bg);          color: var(--ui-success);         border-color: var(--ui-success-border); }
+  .pill.warning   { background: var(--ui-warning-bg);          color: var(--ui-warning);         border-color: var(--ui-warning-border); }
+  .pill.danger    { background: var(--ui-danger-bg);           color: var(--ui-danger);          border-color: var(--ui-danger-border); }
+  .pill.neutral   { background: var(--ui-surface-2);           color: var(--ui-text-secondary);  border-color: var(--ui-border-default); }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    font-size: 9.5px;
+    padding: 1.5px 6px;
+    border-radius: var(--ui-r-xs);
+    font-family: var(--ui-font-mono);
+    font-weight: 600;
+  }
+  .tag.primary   { background: var(--ui-accent-primary-bg);   color: var(--ui-accent-primary); }
+  .tag.secondary { background: var(--ui-accent-secondary-bg); color: var(--ui-accent-secondary); }
+  .tag.success   { background: var(--ui-success-bg);          color: var(--ui-success); }
+  .tag.warning   { background: var(--ui-warning-bg);          color: var(--ui-warning); }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 14px;
+    height: 32px;
+    border-radius: var(--ui-r-md);
+    font-size: var(--ui-text-sm);
+    font-family: var(--ui-font-sans);
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid;
+    user-select: none;
+    transition: all var(--ui-dur-fast) var(--ui-ease-default);
+    background: transparent;
+    color: var(--ui-text-primary);
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn.primary {
+    background: var(--ui-accent-primary);
+    border-color: var(--ui-accent-primary);
+    color: var(--ui-accent-primary-text, #ffffff);
+  }
+  .btn.primary:hover { filter: brightness(1.05); box-shadow: 0 2px 8px var(--ui-accent-primary-glow); }
+  
+  .btn.secondary {
+    background: var(--ui-accent-primary-bg);
+    border-color: var(--ui-accent-primary-border);
+    color: var(--ui-accent-primary);
+  }
+  .btn.secondary:hover { background: var(--ui-accent-primary-border); }
+  
+  .btn.ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--ui-text-secondary);
+  }
+  .btn.ghost:hover { background: var(--ui-surface-2); color: var(--ui-text-primary); }
+  
+  .btn.danger {
+    background: var(--ui-danger-bg);
+    border-color: var(--ui-danger-border);
+    color: var(--ui-danger);
+  }
+  .btn.danger:hover { background: var(--ui-danger-border); }
+  
+  .btn.sm { height: 26px; padding: 0 10px; font-size: var(--ui-text-xs); border-radius: var(--ui-r-sm); }
+  .btn.lg { height: 40px; padding: 0 20px; font-size: var(--ui-text-md); border-radius: var(--ui-r-lg); }
+
+  /* COMMAND BAR */
+  .command-bar {
+    height: 38px;
+    background: var(--ui-surface-1);
+    border: 1px solid var(--ui-border-default);
+    border-radius: var(--ui-r-xl);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 4px;
+    width: 100%;
+  }
+  .cb-dots { display: flex; gap: 5px; margin-right: 6px; }
+  .cb-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .cb-dot.r { background: #ff5f56; } .cb-dot.y { background: #ffbd2e; } .cb-dot.g { background: #27c93f; }
+  .cb-div { width: 1px; height: 14px; background: var(--ui-border-subtle); flex-shrink: 0; margin: 0 3px; }
+  .cb-spacer { flex: 1; }
+  .cb-seg {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 0 8px; height: 26px;
+    border-radius: var(--ui-r-md);
+    font-size: var(--ui-text-xs);
+    font-family: var(--ui-font-mono);
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    transition: background var(--ui-dur-fast), border-color var(--ui-dur-fast), color var(--ui-dur-fast);
+    color: var(--ui-text-tertiary);
+    font-weight: 500;
+  }
+  .cb-seg:hover { background: var(--ui-surface-2); color: var(--ui-text-secondary); }
+  .cb-seg.primary   { color: var(--ui-accent-primary); }
+  .cb-seg.secondary { color: var(--ui-accent-secondary); }
+  .cb-seg.success   { color: var(--ui-success); }
+  .cb-seg.warning   { color: var(--ui-warning); }
+  .cb-seg.active    { background: var(--ui-accent-primary-bg); color: var(--ui-accent-primary); border-color: var(--ui-accent-primary-border); }
+
+  /* DOCK */
+  .dock {
+    background: var(--ui-surface-1);
+    border: 1px solid var(--ui-border-default);
+    border-radius: var(--ui-r-2xl);
+    padding: 6px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+    box-shadow: var(--ui-shadow-dock);
+  }
+  [data-theme="light"] .dock { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+  
+  .dock-btn {
+    width: 34px; height: 34px;
+    border-radius: var(--ui-r-lg);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ui-text-tertiary);
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    transition: background var(--ui-dur-fast), color var(--ui-dur-fast), transform var(--ui-dur-base) var(--ui-ease-spring);
+  }
+  .dock-btn:hover { background: var(--ui-surface-2); color: var(--ui-text-secondary); transform: scale(1.08); }
+  .dock-btn.active { background: var(--ui-accent-primary-bg); color: var(--ui-accent-primary); border: 1px solid var(--ui-accent-primary-border); }
+  
+  .dock-badge {
+    position: absolute; top: 5px; right: 5px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ui-success);
+    border: 1.5px solid var(--ui-surface-1);
+  }
+  .dock-sep { height: 1px; background: var(--ui-border-subtle); margin: 2px 5px; }
+
+  /* DRAWER */
+  .drawer-preview {
+    background: var(--ui-surface-1);
+    border: 1px solid var(--ui-border-default);
+    border-radius: var(--ui-r-xl) var(--ui-r-xl) 0 0;
+    box-shadow: var(--ui-shadow-drawer);
+  }
+  [data-theme="light"] .drawer-preview {
+    background: #ffffff;
+    border-top: 4px solid var(--ui-accent-primary-border);
+  }
+}
+@layer components {
+  /* TERMINAL VIEW */
+  .terminal-window {
+    background: #0a0c0f;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--ui-r-md);
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: var(--ui-shadow-md);
+  }
+  [data-theme="light"] .terminal-window {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .terminal-header {
+    background: #1e2229;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  [data-theme="light"] .terminal-header {
+    background: #f1f3f4;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .terminal-buttons {
+    display: flex;
+    gap: 6px;
+  }
+
+  .terminal-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .terminal-btn.close { background: #ff5f56; }
+  .terminal-btn.min { background: #ffbd2e; }
+  .terminal-btn.max { background: #27c93f; }
+
+  .terminal-title {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    font-family: var(--ui-font-sans);
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    margin-right: 48px; /* Offset buttons width for centering */
+  }
+  [data-theme="light"] .terminal-title {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .tui-block {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 16px !important;
+    margin: 0 !important;
+    font-family: var(--ui-font-mono);
+    font-size: 11px;
+    line-height: 1.6;
+    color: #d0d0d0;
+  }
+  [data-theme="light"] .tui-block {
+    color: #d0d0d0; /* Keep text light inside terminal because background is dark */
+    /* Wait, the terminal body is dark even in light mode? Usually terminals are dark. Let's force terminal body to be dark always */
+  }
+  [data-theme="light"] .terminal-window {
+    background: #0a0c0f; /* Force dark background */
+  }
+}

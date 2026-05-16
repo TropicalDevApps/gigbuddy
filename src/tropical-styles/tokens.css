@@ -1,0 +1,130 @@
+﻿@layer tokens {
+  :root {
+    /* Surface ramp — Adjusted for high contrast pastel theme */
+    /* Surface 0 remains the "deepest" but in Light mode we want pastel depth */
+    --ui-surface-0: var(--brand-surface-0, #0d1017);
+    --ui-surface-1: var(--brand-surface-1, #12151c);
+    --ui-surface-2: var(--brand-surface-2, #161920);
+    --ui-surface-3: var(--brand-surface-3, #1a1d24);
+    --ui-surface-4: var(--brand-surface-4, #1e2229);
+    --ui-surface-5: var(--brand-surface-5, #23272f);
+    --ui-surface-6: var(--brand-surface-6, #2a2e38);
+
+    --ui-border-subtle:  var(--brand-border-subtle,  rgba(255,255,255,0.05));
+    --ui-border-default: var(--brand-border-default, rgba(255,255,255,0.08));
+    --ui-border-hover:   var(--brand-border-hover,   rgba(255,255,255,0.14));
+    --ui-border-active:  var(--brand-border-active,  rgba(255,255,255,0.22));
+
+    --ui-text-primary:   var(--brand-text-primary,   rgba(255,255,255,0.85));
+    --ui-text-secondary: var(--brand-text-secondary, rgba(255,255,255,0.52));
+    --ui-text-tertiary:  var(--brand-text-tertiary,  rgba(255,255,255,0.30));
+    --ui-text-disabled:  var(--brand-text-disabled,  rgba(255,255,255,0.16));
+
+    --ui-accent-primary:        var(--brand-primary);
+    --ui-accent-primary-light:  var(--brand-primary-light);
+    --ui-accent-primary-bg:     var(--brand-primary-bg);
+    --ui-accent-primary-border: var(--brand-primary-border);
+    --ui-accent-primary-glow:   var(--brand-primary-glow);
+
+    --ui-accent-secondary:        var(--brand-secondary);
+    --ui-accent-secondary-bg:     var(--brand-secondary-bg);
+    --ui-accent-secondary-border: var(--brand-secondary-border);
+
+    --ui-success:        #34a853;
+    --ui-success-light:  #81c995;
+    --ui-success-bg:     rgba(52,168,83,0.12);
+    --ui-success-border: rgba(52,168,83,0.25);
+
+    --ui-warning:        #fbbf24;
+    --ui-warning-bg:     rgba(251,191,36,0.10);
+    --ui-warning-border: rgba(251,191,36,0.22);
+
+    --ui-danger:         #f28b82;
+    --ui-danger-bg:      rgba(242,139,130,0.12);
+    --ui-danger-border:  rgba(242,139,130,0.25);
+
+    --ui-info:           #60a5fa;
+    --ui-info-bg:        rgba(96,165,250,0.12);
+    --ui-info-border:    rgba(96,165,250,0.25);
+
+    --ui-gradient-primary: var(--brand-gradient);
+
+    --ui-font-sans:  var(--brand-font-sans,  'DM Sans', system-ui, sans-serif);
+    --ui-font-mono:  var(--brand-font-mono,  'DM Mono', 'Fira Code', monospace);
+    --ui-font-serif: var(--brand-font-serif, 'DM Serif Display', Georgia, serif);
+
+    --ui-text-2xs: 9.5px;
+    --ui-text-xs:  10.5px;
+    --ui-text-sm:  11.5px;
+    --ui-text-base: 13px;
+    --ui-text-md:  14px;
+    --ui-text-lg:  16px;
+    --ui-text-xl:  20px;
+    --ui-text-2xl: 26px;
+    --ui-text-3xl: 34px;
+    --ui-text-4xl: 44px;
+
+    --ui-leading-tight: 1.3;
+    --ui-leading-base:  1.55;
+    --ui-leading-loose: 1.75;
+
+    --ui-sp-1: 4px;  --ui-sp-2: 8px;   --ui-sp-3: 12px;
+    --ui-sp-4: 16px; --ui-sp-5: 20px;  --ui-sp-6: 24px;
+    --ui-sp-8: 32px; --ui-sp-10: 40px; --ui-sp-12: 48px;
+
+    --ui-r-xs:   3px;
+    --ui-r-sm:   5px;
+    --ui-r-md:   7px;
+    --ui-r-lg:   10px;
+    --ui-r-xl:   13px;
+    --ui-r-2xl:  18px;
+    --ui-r-pill: 999px;
+
+    --ui-ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ui-ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+    --ui-ease-in:      cubic-bezier(0.4, 0, 1, 1);
+    --ui-ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ui-ease-linear:  linear;
+
+    --ui-dur-instant: 60ms;
+    --ui-dur-fast:    110ms;
+    --ui-dur-base:    190ms;
+    --ui-dur-slow:    320ms;
+    --ui-dur-drawer:  370ms;
+    --ui-dur-page:    420ms;
+
+    --ui-shadow-sm:     0 1px 4px rgba(0,0,0,0.3);
+    --ui-shadow-md:     0 4px 16px rgba(0,0,0,0.4);
+    --ui-shadow-lg:     0 8px 32px rgba(0,0,0,0.5);
+    --ui-shadow-dock:   0 4px 28px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.3);
+    --ui-shadow-drawer: 0 -4px 32px rgba(0,0,0,0.4);
+
+    --ui-z-base:    1;
+    --ui-z-raised:  10;
+    --ui-z-sticky:  20;
+    --ui-z-drawer:  30;
+    --ui-z-dock:    40;
+    --ui-z-tooltip: 50;
+    --ui-z-modal:   60;
+  }
+
+  [data-theme="light"] {
+    --ui-surface-0: #f5f5f5; /* Lightest neutral */
+    --ui-surface-1: #ffffff; /* pure white for primary elements */
+    --ui-surface-2: #fafafa;
+    --ui-surface-3: #fcfcfc;
+    --ui-surface-4: var(--ui-accent-primary-bg); /* Use the pastel brand BG for panels */
+    --ui-surface-5: var(--ui-accent-primary-border); /* Slightly darker pastel for hover */
+    --ui-surface-6: #eeeeee;
+
+    --ui-border-subtle:  rgba(0,0,0,0.03);
+    --ui-border-default: rgba(0,0,0,0.06);
+    --ui-border-hover:   rgba(0,0,0,0.12);
+    --ui-border-active:  rgba(0,0,0,0.20);
+
+    --ui-text-primary:   #2c3e50; /* High contrast dark blue-grey */
+    --ui-text-secondary: #546e7a;
+    --ui-text-tertiary:  #90a4ae;
+    --ui-text-disabled:  #cfd8dc;
+  }
+}

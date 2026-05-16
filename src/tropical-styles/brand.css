@@ -1,0 +1,53 @@
+﻿@layer brand {
+  /* PRESET: Mango (Flat Pastel) */
+  .brand-mango {
+    --brand-primary:        #FFB347;
+    --brand-primary-light:  #FFCC80;
+    --brand-primary-bg:     #FFF3E0;
+    --brand-primary-border: #FFE0B2;
+    --brand-primary-glow:   rgba(255,179,71,0.15);
+    --brand-secondary:      #F0E68C;
+    --brand-secondary-bg:   #FFFDE7;
+    --brand-secondary-border: #FFF9C4;
+    --brand-gradient:       #FFB347;
+  }
+
+  /* PRESET: Ocean (Flat Pastel) */
+  .brand-ocean {
+    --brand-primary:        #4FA4D8;
+    --brand-primary-light:  #90CAF9;
+    --brand-primary-bg:     #E3F2FD;
+    --brand-primary-border: #BBDEFB;
+    --brand-primary-glow:   rgba(79,164,216,0.15);
+    --brand-secondary:      #80CBC4;
+    --brand-secondary-bg:   #E0F2F1;
+    --brand-secondary-border: #B2DFDB;
+    --brand-gradient:       #4FA4D8;
+  }
+
+  /* PRESET: Pitahaya (BCS Inspired) */
+  .brand-pitahaya {
+    --brand-primary:        #FF2400;
+    --brand-primary-light:  #FF5C4D;
+    --brand-primary-bg:     #FFF0F0;
+    --brand-primary-border: #FFCDD2;
+    --brand-primary-glow:   rgba(255,36,0,0.15);
+    --brand-secondary:      #2E8B57;
+    --brand-secondary-bg:   #F0F7F4;
+    --brand-secondary-border: #C8E6C9;
+    --brand-gradient:       #FF2400;
+  }
+
+  /* PRESET: Papaya (Flat Pastel) */
+  .brand-papaya {
+    --brand-primary:        #FF8A65;
+    --brand-primary-light:  #FFAB91;
+    --brand-primary-bg:     #FBE9E7;
+    --brand-primary-border: #FFCCBC;
+    --brand-primary-glow:   rgba(255,138,101,0.15);
+    --brand-secondary:      #FFD54F;
+    --brand-secondary-bg:   #FFF8E1;
+    --brand-secondary-border: #FFECB3;
+    --brand-gradient:       #FF8A65;
+  }
+}
