@@ -1,16 +1,42 @@
-# 🎸 gigBuddy
+<table border="0">
+  <tr>
+    <td width="200" align="center" valign="top">
+      <img src="shot.png" width="180" alt="gigBuddy logo">
+    </td>
+    <td valign="top">
+      <h1>gigBuddy</h1>
+      <p><strong>The ultimate real-time live music dashboard.</strong><br/>
+      <em>Sync setlists, lyrics, and chords, and control Spotify/YouTube Music playback directly from the stage.</em></p>
+      <p>
+        <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="License Apache 2.0"></a>
+        <img src="https://img.shields.io/badge/status-development-orange" alt="Status">
+        <img src="https://img.shields.io/badge/tech-React%20%2B%20Firebase-yellow" alt="Tech Stack">
+      </p>
+    </td>
+  </tr>
+</table>
 
-![gigBuddy Dashboard](./shot.png)
+---
 
-The ultimate real-time live music dashboard. Sync setlists, lyrics, and chords, and control Spotify/YouTube Music playback directly from the stage with your band.
+## ⚡ Superpowers
 
-## 📱 Progressive Web App (PWA)
-**gigBuddy** is designed to work everywhere. It runs as a **Progressive Web App**, meaning you can install it directly on your devices for a native app experience:
+- **Real-Time Sync:** Synchronized setlists, lyrics, and chords across all band members' devices.
+- **Media Bridge:** Direct remote control for Spotify and YouTube Music from the dashboard.
+- **PWA Ready:** Installable on Desktop, Tablet, and Mobile for a native experience.
+- **Offline Resilient:** Access cached stage data even when the venue Wi-Fi fails.
+- **Stage-Optimized:** High-contrast, touch-friendly UI designed for live performance.
 
--   **💻 Desktop/PC**: Install via Chrome/Edge (click the install icon in the address bar).
--   **📱 Mobile (iOS/Android)**: "Add to Home Screen" from your mobile browser.
--   **📟 Tablets**: Perfect for stage-view use, fully responsive and touch-optimized.
--   **📶 Offline Support**: Access your cached setlists even when the venue's Wi-Fi fails.
+---
+
+## 📖 Documentation
+
+For a comprehensive technical breakdown, architectural ADRs, and operational guides, visit our official **[Wiki](docs/wiki/index.md)**.
+
+*   **[Data Schema](docs/wiki/schema.json)**
+*   **[Contributing Guide](docs/wiki/CONTRIBUTING.md)**
+*   **[Agent SOP](docs/AGENT.md)**
+
+---
 
 ## 🚀 Getting Started
 
